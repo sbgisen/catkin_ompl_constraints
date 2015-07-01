@@ -1,0 +1,16 @@
+<package>
+  <name>ompl_constraints</name>
+  <version>0.1.0</version>
+  <description>Custom interface that allows for constraint specifications in OMPL</description>
+  <author email="rluna@rice.edu">Ryan Luna</author>
+  <maintainer email="rluna@rice.edu">Ryan Luna</maintainer>
+
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>ompl_source</build_depend>
+  <run_depend>ompl_source</run_depend>
+
+
+</package>
