@@ -417,7 +417,7 @@ bool ompl::geometric::CBiRRT2::shortcutPath(PathGeometric *path, const base::Pla
     unsigned int count = 0;
     unsigned int maxCount = 10;
 
-    while(!ptc && count < maxCount && states.size() > 2)
+    while(!ptc && count < maxCount && states.size() > 3)
     {
         int i = rng_.uniformInt(0, states.size()-2);
         int j;
