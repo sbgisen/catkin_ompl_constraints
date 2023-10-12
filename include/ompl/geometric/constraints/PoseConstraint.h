@@ -36,6 +36,7 @@
 
 #ifndef OMPL_GEOMETRIC_CONSTRAINTS_POSE_CONSTRAINT_
 #define OMPL_GEOMETRIC_CONSTRAINTS_POSE_CONSTRAINT_
+#include <functional>
 
 #include <ompl/util/RandomNumbers.h>
 #include <ompl/util/Exception.h>
@@ -54,7 +55,7 @@ namespace ompl
 
         /// \brief Definition of a pose function.  Given a state, return the pose that is to
         /// be constrained (position and orientation - Euler angles).
-        typedef boost::function<void(const base::State*, Eigen::Vector3d& position, Eigen::Vector3d& rpy)> PoseFn;
+        typedef std::function<void(const base::State*, Eigen::Vector3d& position, Eigen::Vector3d& rpy)> PoseFn;
 
         class PoseConstraint : public base::Constraint
         {

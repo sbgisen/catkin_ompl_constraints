@@ -39,7 +39,7 @@
 
 #include <vector>
 #include <limits>
-#include <boost/function.hpp>
+#include <functional>
 
 #include "ompl/base/Constraint.h"
 #include "ompl/geometric/constraints/PoseConstraint.h"
@@ -63,13 +63,13 @@ namespace ompl
             /// compute the global reference frame of each link in the kinematic chain
             /// Assumed that the number of frames returned will be # links + 1
             /// (origin and end effector frames are included).
-            typedef boost::function<void(const base::State*, std::vector<Eigen::Affine3d>&)> ForwardKinematicsFn;
+            typedef std::function<void(const base::State*, std::vector<Eigen::Affine3d>&)> ForwardKinematicsFn;
 
             /// \brief A function definition for inverse kinematics.  For the given poses
             /// (for given link index), compute the joint positions for the kinematic
             /// chain that will achieve the poses.  If this computation fails, this
             /// function should return false.
-            typedef boost::function<bool(base::State*, const std::map<unsigned int, Eigen::Affine3d>& poses)> InverseKinematicsFn;
+            typedef std::function<bool(base::State*, const std::map<unsigned int, Eigen::Affine3d>& poses)> InverseKinematicsFn;
 
             /// \brief Constructor.  Takes (entire) state space and the location of the (sub)space that
             /// is being constrained.  The number of links in the constrained portion of the state space
@@ -160,7 +160,7 @@ namespace ompl
             virtual void setPoseConstraint(unsigned int n, double x, double y, double z,
                                            double roll, double pitch, double yaw)
             {
-                PoseConstraintPtr pose(new PoseConstraint(space_, boost::bind(&KinematicConstraint::getPose,
+                PoseConstraintPtr pose(new PoseConstraint(space_, std::bind(&KinematicConstraint::getPose,
                                                                               this, _1, _2, _3, n)));
                 pose->setPosition(x, y, z);
                 pose->setOrientation(roll, pitch, yaw);

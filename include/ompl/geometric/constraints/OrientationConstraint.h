@@ -41,7 +41,6 @@
 #include "ompl/base/Constraint.h"
 #include "ompl/util/RandomNumbers.h"
 
-#include <boost/math/constants/constants.hpp>
 #include <Eigen/Dense>
 
 #include <limits>

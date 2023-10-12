@@ -39,7 +39,7 @@
 
 #include <vector>
 #include <limits>
-#include <boost/function.hpp>
+#include <functional>
 #include <Eigen/Dense>
 
 #include "ompl/base/Constraint.h"
@@ -56,13 +56,13 @@ namespace ompl
         /// \brief A function definition for forward kinematics.  For the given state,
         /// compute the global reference frame of each link in the kinematic chain
         /// Assumed that the frame return is the end effector
-        typedef boost::function<void(const base::State*, Eigen::Affine3d&)> EEForwardKinematicsFn;
+        typedef std::function<void(const base::State*, Eigen::Affine3d&)> EEForwardKinematicsFn;
         //typedef boost::function<void(const base::State*, std::vector<Eigen::Affine3d>&)> EEForwardKinematicsFn;
 
         /// \brief A function definition for inverse kinematics.  For the given pose,
         /// compute the joint positions for the kinematic chain that will achieve the
         /// pose.  If this computation fails, this function should return false.
-        typedef boost::function<bool(base::State*, const Eigen::Affine3d&)> EEInverseKinematicsFn;
+        typedef std::function<bool(base::State*, const Eigen::Affine3d&)> EEInverseKinematicsFn;
 
         /// Representation of a pose constraint on the end effector of a kinematic
         /// chain.  This constraint is highly abstract and relies on callback

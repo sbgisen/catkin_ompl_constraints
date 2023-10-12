@@ -47,7 +47,7 @@ ompl::geometric::CBiRRT2::CBiRRT2(const base::SpaceInformationPtr &si) : base::P
     maxDistance_ = 0.0;
     connectionPoint_ = std::make_pair<base::State*, base::State*>(NULL, NULL);
 
-    const base::ConstrainedSpaceInformationPtr& csi = boost::dynamic_pointer_cast<base::ConstrainedSpaceInformation>(si);
+    const base::ConstrainedSpaceInformationPtr& csi = std::dynamic_pointer_cast<base::ConstrainedSpaceInformation>(si);
     if (!csi)
         OMPL_ERROR("%s: Failed to cast SpaceInformation to ConstrainedSpaceInformation", getName().c_str());
     else
@@ -80,11 +80,11 @@ void ompl::geometric::CBiRRT2::setup(void)
     sc.configurePlannerRange(maxDistance_);
 
     if (!tStart_)
-        tStart_.reset(tools::SelfConfig::getDefaultNearestNeighbors<Motion*>(si_->getStateSpace()));
+        tStart_.reset(tools::SelfConfig::getDefaultNearestNeighbors<Motion*>(this));
     if (!tGoal_)
-        tGoal_.reset(tools::SelfConfig::getDefaultNearestNeighbors<Motion*>(si_->getStateSpace()));
-    tStart_->setDistanceFunction(boost::bind(&CBiRRT2::distanceFunction, this, _1, _2));
-    tGoal_->setDistanceFunction(boost::bind(&CBiRRT2::distanceFunction, this, _1, _2));
+        tGoal_.reset(tools::SelfConfig::getDefaultNearestNeighbors<Motion*>(this));
+    tStart_->setDistanceFunction(std::bind(&CBiRRT2::distanceFunction, this, std::placeholders::_1, std::placeholders::_2));
+    tGoal_->setDistanceFunction(std::bind(&CBiRRT2::distanceFunction, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 void ompl::geometric::CBiRRT2::freeMemory(void)
